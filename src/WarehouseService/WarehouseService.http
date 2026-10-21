@@ -1,0 +1,40 @@
+@WarehouseService_HostAddress = http://localhost:5250
+@WarehouseId = REPLACE_WITH_WAREHOUSE_ID
+@ProductId = 00000000-0000-0000-0000-000000000001
+
+POST {{WarehouseService_HostAddress}}/api/warehouses
+Content-Type: application/json
+
+{
+  "name": "Central Warehouse",
+  "address": "100 Main Street",
+  "latitude": 40.7128,
+  "longitude": -74.0060,
+  "capacity": 1000
+}
+
+###
+
+POST {{WarehouseService_HostAddress}}/api/warehouses/{{WarehouseId}}/inventory
+Content-Type: application/json
+
+{
+  "productId": "{{ProductId}}",
+  "quantity": 50
+}
+
+###
+
+POST {{WarehouseService_HostAddress}}/api/warehouses/select
+Content-Type: application/json
+
+{
+  "customerLatitude": 40.7306,
+  "customerLongitude": -73.9352,
+  "items": [
+    {
+      "productId": "{{ProductId}}",
+      "quantity": 2
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+﻿----------ENV----
+$env:ConnectionStrings__DeliveryDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsDelivery;Integrated Security=True;Trust Server Certificate=True;"
+$env:ConnectionStrings__OrderDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsOrders;Integrated Security=True;Trust Server Certificate=True;"
+$env:ConnectionStrings__InventoryDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsInventory;Integrated Security=True;Trust Server Certificate=True;"
+$env:ConnectionStrings__WarehouseDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsWarehouses;Integrated Security=True;Trust Server Certificate=True;"
+------------after----------------
+$env:ConnectionStrings__WarehouseDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsWarehouses;Integrated Security=True;Trust Server Certificate=True;"
+$env:ConnectionStrings__WarehouseDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsWarehouses;Integrated Security=True;Trust Server Certificate=True;"
+$env:ConnectionStrings__WarehouseDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsWarehouses;Integrated Security=True;Trust Server Certificate=True;"
+$env:ConnectionStrings__WarehouseDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsWarehouses;Integrated Security=True;Trust Server Certificate=True;"
+
+$env:SigningKey="f5PF60kaR7yVDSPH4kZ5ZxxI9l5Zd6fcfILS+veDfRE="
+				 
+-----------------------RabbitMQ--------
+
+Error Description:
+The exception RabbitMQ.Client.Exceptions.BrokerUnreachableException with the message "None of the specified endpoints were reachable" occurs when your application tries to 
+connect to RabbitMQ at localhost:5672 using the default credentials (guest/guest), but the connection is actively refused.
+Why You Are Getting This Error:
+The connection is being refused because the RabbitMQ server is either not running on localhost:5672, is not accessible from your application, or is configured to reject the 
+connection (e.g., firewall, guest user restrictions, or network issues). The configuration in your code and appsettings.json matches the default RabbitMQ setup, so the root 
+cause is likely environmental:
+•	RabbitMQ is not running on your machine.
+•	RabbitMQ is running on a different port or host.
+•	The guest user is restricted to local connections, but your app is running in a container or VM.
+•	Firewall or network rules are blocking the connection.
+Next Steps:
+•	Ensure RabbitMQ is running on localhost:5672.
+•	Check if your application and RabbitMQ are running in the same environment (host/container/VM).
+•	Verify that the guest user is allowed to connect from your application's host.

@@ -1,0 +1,35 @@
+@OrderService_HostAddress = http://localhost:5073
+@OrderId = REPLACE_WITH_ORDER_ID
+
+POST {{OrderService_HostAddress}}/api/orders
+Content-Type: application/json
+
+{
+  "customerId": "00000000-0000-0000-0000-000000000001",
+  "warehouseId": "00000000-0000-0000-0000-000000000002",
+  "totalAmount": 125.50,
+  "deliveryAddress": "100 Main Street"
+}
+
+###
+
+PUT {{OrderService_HostAddress}}/api/orders/{{OrderId}}/status
+Content-Type: application/json
+
+{
+  "status": "Confirmed"
+}
+
+###
+
+PUT {{OrderService_HostAddress}}/api/orders/{{OrderId}}/payment-status
+Content-Type: application/json
+
+{
+  "status": "Paid"
+}
+
+###
+
+GET {{OrderService_HostAddress}}/api/orders/{{OrderId}}
+Accept: application/json

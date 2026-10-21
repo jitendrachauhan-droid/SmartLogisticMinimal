@@ -1,0 +1,25 @@
+ $env:ConnectionStrings__AuthDb = "Data Source=DESKTOP-AKAJP53\MSSQLSERVER01;Initial Catalog=SmartLogisticsAuth;Integrated Security=True;Trust Server Certificate=True;"
+$env:Jwt__SigningKey = "f5PF60kaR7yVDSPH4kZ5ZxxI9l5Zd6fcfILS+veDfRE="
+
+
+"id": "8c4ad185-e339-4d3c-b8f8-a6356513f8cb",
+  "email": "jitendra.chauhan@programming.com",
+
+   "email": "jitendra.chauhan@programming.com",
+  "password": "jitendra.chauhan@123",
+  {
+  "id": "33ce2c0f-3784-4cc3-a071-df70bcfb6634",
+  "email": "user@example.com",
+  "displayName": "string",
+  "role": 4
+}
+  •	dotnet ef database update --project src/AuthService/AuthService.csproj --startup-project src/ApiGateway/ApiGateway.csproj --context AuthDbContext
+  if you have existing migrations and are using the Package Manager Console in Visual Studio, you can run the following command to update the database for the AuthService project:
+   Update-Database -Project AuthService -StartupProject AuthService
+
+   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMDM4ZjJlNS02MzFmLTQ3MDYtYWZkNy0zODgyNzE3MGNiM2YiLCJlbWFpbCI6ImppdGVuZHJhLmNoYXVoYW5AcHJvZ3JhbW1pbmcuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImppdGVuZHJhIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3OTE0ODc1MzEsImV4cCI6MTc5MTQ4OTMzMSwiaXNzIjoiU21hcnRMb2dpc3RpY3MuQXV0aFNlcnZpY2UiLCJhdWQiOiJTbWFydExvZ2lzdGljcy5BcGkifQ.xC9_aHtLNF4syu_VyAGK1TFwHHrhORo1ji5z38E094Y",
+  "accessTokenExpiresAt": "2026-10-08T19:55:31.0153623+00:00",
+  "refreshToken": "ZcBVlac0aNVN35JTikoaSA5GV9QN3i5JzuVajm1XwCtOgQpTnmIjaEHpGbTPHhy3Q/tYjL7CjR0hoysdjN1dyg==",
+  "user": {
+    "id": "3038f2e5-631f-4706-afd7-38827170cb3f",
+    "email": "jitendra.chauhan@programming.com",

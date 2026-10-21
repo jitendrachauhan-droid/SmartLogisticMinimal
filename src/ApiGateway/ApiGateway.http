@@ -1,0 +1,25 @@
+@Gateway_HostAddress = http://localhost:5132
+
+GET {{Gateway_HostAddress}}/health
+Accept: application/json
+
+###
+
+POST {{Gateway_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "password": "ChangeMe123!"
+}
+
+###
+
+GET {{Gateway_HostAddress}}/api/customers?page=1&pageSize=20
+Authorization: Bearer REPLACE_WITH_ACCESS_TOKEN
+Accept: application/json@ApiGateway_HostAddress = http://localhost:5132
+
+GET {{ApiGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

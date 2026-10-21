@@ -1,0 +1,47 @@
+@InventoryService_HostAddress = http://localhost:5160
+@ProductId = REPLACE_WITH_PRODUCT_ID
+
+POST {{InventoryService_HostAddress}}/api/inventory/products
+Content-Type: application/json
+
+{
+  "name": "Wireless Scanner",
+  "sku": "SCAN-001",
+  "initialQuantity": 10,
+  "lowStockThreshold": 2
+}
+
+###
+
+GET {{InventoryService_HostAddress}}/api/inventory/{{ProductId}}
+Accept: application/json
+
+###
+
+POST {{InventoryService_HostAddress}}/api/inventory/reserve
+Content-Type: application/json
+
+{
+  "productId": "{{ProductId}}",
+  "quantity": 8
+}
+
+###
+
+POST {{InventoryService_HostAddress}}/api/inventory/release
+Content-Type: application/json
+
+{
+  "productId": "{{ProductId}}",
+  "quantity": 8
+}
+
+###
+
+POST {{InventoryService_HostAddress}}/api/inventory/deduct
+Content-Type: application/json
+
+{
+  "productId": "{{ProductId}}",
+  "quantity": 8
+}

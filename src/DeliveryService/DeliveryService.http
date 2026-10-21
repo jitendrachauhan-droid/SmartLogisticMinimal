@@ -1,0 +1,35 @@
+@DeliveryService_HostAddress = http://localhost:5007
+@DeliveryId = REPLACE_WITH_DELIVERY_ID
+@AgentId = 00000000-0000-0000-0000-000000000001
+
+POST {{DeliveryService_HostAddress}}/api/deliveries
+Content-Type: application/json
+
+{
+  "orderId": "00000000-0000-0000-0000-000000000010",
+  "deliveryAddress": "100 Main Street",
+  "estimatedDeliveryAt": "2026-09-22T15:00:00Z"
+}
+
+###
+
+POST {{DeliveryService_HostAddress}}/api/deliveries/{{DeliveryId}}/assign
+Content-Type: application/json
+
+{
+  "agentId": "{{AgentId}}"
+}
+
+###
+
+PUT {{DeliveryService_HostAddress}}/api/deliveries/{{DeliveryId}}/status
+Content-Type: application/json
+
+{
+  "status": "PickedUp"
+}
+
+###
+
+GET {{DeliveryService_HostAddress}}/api/deliveries/{{DeliveryId}}/tracking
+Accept: application/json

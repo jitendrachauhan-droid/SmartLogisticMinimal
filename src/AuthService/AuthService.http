@@ -1,0 +1,27 @@
+@AuthService_HostAddress = http://localhost:5000
+
+POST {{AuthService_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "admin@smartlogistics.local",
+  "password": "ChangeMe123!",
+  "displayName": "Platform Admin",
+  "role": "Admin"
+}
+
+###
+
+POST {{AuthService_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@smartlogistics.local",
+  "password": "ChangeMe123!"
+}
+
+###
+
+GET {{AuthService_HostAddress}}/api/auth/me
+Authorization: Bearer REPLACE_WITH_ACCESS_TOKEN
+Accept: application/json
