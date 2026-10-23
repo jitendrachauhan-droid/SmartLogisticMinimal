@@ -85,6 +85,7 @@ app.MapPost("/api/orders", async (CreateOrderRequest request, OrderStore store, 
         order.WarehouseId,
         order.TotalAmount,
         order.DeliveryAddress,
+        request.Items.Select(item => new OrderCreatedItem(item.ProductId, item.Quantity)).ToArray(),
         order.OrderDate).ToIntegrationEvent(), cancellationToken);
     return Results.Created($"/api/orders/{order.OrderId}", order);
 })

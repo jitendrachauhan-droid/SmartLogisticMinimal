@@ -40,7 +40,8 @@ public sealed class RabbitMqEventPublisher(RabbitMqOptions options, ILogger<Rabb
         }
         catch (Exception exception) when (exception is not OperationCanceledException)
         {
-            logger.LogWarning(exception, "Could not publish integration event {EventName} with ID {EventId}.", integrationEvent.EventName, integrationEvent.EventId);
+            logger.LogError(exception, "Could not publish integration event {EventName} with ID {EventId}.", integrationEvent.EventName, integrationEvent.EventId);
+            throw;
         }
     }
 }

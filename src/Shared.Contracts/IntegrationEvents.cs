@@ -20,11 +20,14 @@ public sealed record OrderCreatedEvent(
     Guid WarehouseId,
     decimal TotalAmount,
     string DeliveryAddress,
+    IReadOnlyList<OrderCreatedItem> Items,
     DateTimeOffset OccurredAt)
 {
     public IntegrationEvent ToIntegrationEvent()
         => new(Guid.NewGuid().ToString(), EventNames.OrderCreated, OccurredAt, JsonSerializer.Serialize(this));
 }
+
+public sealed record OrderCreatedItem(Guid ProductId, int Quantity);
 
 public sealed record StockReservedEvent(Guid OrderId, Guid ProductId, int Quantity, DateTimeOffset OccurredAt);
 public sealed record OrderPackedEvent(Guid OrderId, DateTimeOffset OccurredAt);

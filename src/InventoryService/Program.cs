@@ -13,6 +13,15 @@ if (string.IsNullOrWhiteSpace(connectionString))
 builder.Services.AddDbContext<InventoryDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddStackExchangeRedisCache(options => options.Configuration = builder.Configuration.GetConnectionString("Redis") ?? "localhost:6379");
 builder.Services.AddScoped<InventoryStore>();
+var rabbitMqOptions = builder.Configuration.GetSection("RabbitMq").Get<InventoryRabbitMqOptions>() ?? new InventoryRabbitMqOptions();
+builder.Services.AddSingleton(rabbitMqOptions);
+var serviceEndpoints = builder.Configuration.GetSection("ServiceEndpoints").Get<InventoryServiceEndpointsOptions>() ?? new InventoryServiceEndpointsOptions();
+builder.Services.AddHttpClient<WarehouseServiceClient>(client =>
+{
+    client.BaseAddress = new Uri(serviceEndpoints.WarehouseServiceUrl);
+    client.Timeout = TimeSpan.FromSeconds(10);
+});
+builder.Services.AddHostedService<OrderCreatedWorker>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
