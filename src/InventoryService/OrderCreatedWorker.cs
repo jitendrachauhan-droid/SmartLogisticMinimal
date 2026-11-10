@@ -1,10 +1,11 @@
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using Serilog.Core;
+using Shared.Contracts;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using Shared.Contracts;
 
 namespace InventoryService;
 
@@ -27,15 +28,43 @@ public sealed class WarehouseServiceClient(HttpClient httpClient)
 {
     public async Task<bool> IsAvailableAsync(Guid warehouseId, int requiredCapacity, CancellationToken cancellationToken)
     {
-        using var response = await httpClient.GetAsync($"/api/warehouses/{warehouseId}", cancellationToken);
-        if (response.StatusCode == HttpStatusCode.NotFound)
+        try
         {
+            var baseUrl = new InventoryServiceEndpointsOptions().WarehouseServiceUrl;
+
+            var url = $"{baseUrl}/api/warehouses/{warehouseId}";
+            Console.WriteLine($"Calling warehouse API: {url}");
+            Console.WriteLine($"Timeout: {httpClient.Timeout}");
+
+            using var response = await httpClient.GetAsync(url, cancellationToken);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return false;
+            }
+
+            response.EnsureSuccessStatusCode();
+            var warehouse = await response.Content.ReadFromJsonAsync<WarehouseAvailabilityResponse>(cancellationToken);
+            return warehouse is { IsAvailable: true } && warehouse.AvailableCapacity >= requiredCapacity;
+        }
+        catch (HttpRequestException ex)
+        {
+            //logger.LogError(exception, "Failed to process OrderCreated message; it will be requeued.")
+            // HTTP/network error
+            Console.WriteLine(ex.ToString());
             return false;
         }
-
-        response.EnsureSuccessStatusCode();
-        var warehouse = await response.Content.ReadFromJsonAsync<WarehouseAvailabilityResponse>(cancellationToken);
-        return warehouse is { IsAvailable: true } && warehouse.AvailableCapacity >= requiredCapacity;
+        catch (TaskCanceledException ex) when (!cancellationToken.IsCancellationRequested)
+        {
+            Console.WriteLine(ex.ToString());
+            // HTTP request timeout
+            return false;
+        }
+        catch (System.Text.Json.JsonException ex)
+        {
+            Console.WriteLine(ex.ToString());
+            // Invalid JSON response
+            return false;
+        }
     }
 
     private sealed record WarehouseAvailabilityResponse(bool IsAvailable, int AvailableCapacity);
